@@ -228,10 +228,10 @@ class TestMaintenancePlan(TestMaintenancePlanBase):
             limit=1,
         )
         generated_request.note = "TEST-INSTRUCTIONS"
-        res = self.report_obj._get_report_from_name(
-            "base_maintenance.report_maintenance_request"
-        )._render_qweb_text(generated_request.ids, False)
-        self.assertRegex(str(res[0]), "TEST-INSTRUCTIONS")
+        rendering, qweb_type = self.report_obj._render_qweb_text(
+            "base_maintenance.report_maintenance_request", generated_request.ids
+        )
+        self.assertFalse(rendering.decode("utf-8").find("TEST-INSTRUCTIONS") == -1)
 
     def test_maintenance_plan_button_manual_request_generation(self):
         self.assertEqual(len(self.maintenance_plan_1.maintenance_ids), 0)
