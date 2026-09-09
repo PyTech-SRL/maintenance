@@ -19,7 +19,7 @@ class TestMaintenanceEquipmentCertification(TransactionCase):
                 "name": "Demo User",
                 "login": "demo_cert",
                 "email": "demo@user.com",
-                "group_ids": [(6, 0, [cls.env.ref("base.group_user").id])],
+                "groups_id": [fields.Command.set(cls.env.ref("base.group_user").ids)],
             }
         )
         cls.technician = cls.env["res.users"].create(
@@ -27,8 +27,10 @@ class TestMaintenanceEquipmentCertification(TransactionCase):
                 "name": "Technician",
                 "login": "tech_cert",
                 "email": "tech@example.com",
-                "group_ids": [
-                    (6, 0, [cls.env.ref("maintenance.group_equipment_manager").id]),
+                "groups_id": [
+                    fields.Command.set(
+                        cls.env.ref("maintenance.group_equipment_manager").ids
+                    ),
                 ],
             }
         )
@@ -81,8 +83,10 @@ class TestMaintenanceEquipmentCertification(TransactionCase):
 
         self.user_demo.write(
             {
-                "group_ids": [
-                    (6, 0, [self.env.ref("maintenance.group_equipment_manager").id])
+                "groups_id": [
+                    fields.Command.set(
+                        self.env.ref("maintenance.group_equipment_manager").ids
+                    )
                 ],
             }
         )

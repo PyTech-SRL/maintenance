@@ -20,7 +20,6 @@
         <field name="model">maintenance.equipment.certificate</field>
         <field name="arch" type="xml">
             <form>
-                <field name="active" invisible="1" />
                 <widget
                     name="web_ribbon"
                     title="Archived"
